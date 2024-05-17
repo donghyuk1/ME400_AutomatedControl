@@ -1,0 +1,136 @@
+{
+  "PylonMetaData": {
+    "ObjectVersion": "1.0.0",
+    "MinRequiredSoftwareVersion": "1.0.0"
+  },
+  "PylonContent": {
+    "Ui": {
+      "UiGraphInputOutput": [
+        {
+          "id": "<GraphInput>",
+          "x": 81.3333333333334,
+          "y": 81.00000000000003
+        },
+        {
+          "id": "<GraphOutput>",
+          "x": 776.0700073242188,
+          "y": 91.98066329956058
+        }
+      ],
+      "UiNodes": [
+        {
+          "id": "GrayValueTransformerBasic",
+          "x": 479.9999999999999,
+          "y": 109.00000000000009,
+          "WatchNodePins": [
+            {
+              "nodeName": "GrayValueTransformerBasic",
+              "pinName": "Image",
+              "pinDirection": "Output"
+            }
+          ]
+        },
+        {
+          "id": "Camera",
+          "x": 194.19888814290357,
+          "y": 110.33333333333331,
+          "WatchNodePins": [
+            {
+              "nodeName": "Camera",
+              "pinName": "Image",
+              "pinDirection": "Output"
+            }
+          ]
+        }
+      ],
+      "PylonMetaData": {
+        "ObjectVersion": "1.1.0",
+        "MinRequiredSoftwareVersion": "1.0.0"
+      }
+    },
+    "Graph": {
+      "PylonMetaData": {
+        "ObjectVersion": "1.1.0",
+        "MinRequiredSoftwareVersion": "1.0.0"
+      },
+      "Nodes": [
+        {
+          "Name": "Camera",
+          "Enabled": true,
+          "NodeTypeID": "846BCA11-6BF2-4895-88C4-FE038F5A659C",
+          "Type": "Plugin::PylonVToolPackageBase::Camera",
+          "NodeData": {
+            "PylonMetaData": {
+              "ObjectVersion": "1.1.0",
+              "MinRequiredSoftwareVersion": "1.0.0"
+            },
+            "AcquisitionMode": 1,
+            "FixCorruptImages": 1
+          }
+        },
+        {
+          "Name": "GrayValueTransformerBasic",
+          "Enabled": false,
+          "NodeTypeID": "98DE0BB1-092E-42C1-8CC7-9E6231FE5F9E",
+          "Type": "Plugin::PylonVToolPackageA::GrayValueTransformerBasic",
+          "NodeData": {
+            "PylonMetaData": {
+              "ObjectVersion": "1.0.0",
+              "MinRequiredSoftwareVersion": "1.0.0"
+            },
+            "settings": {
+              "SettingsVersion": 1,
+              "Operation": 1,
+              "Add": 0,
+              "Mult": 1
+            }
+          }
+        }
+      ],
+      "Connections": [
+        {
+          "Name": "Connection",
+          "Source": "Camera",
+          "Sink": "GrayValueTransformerBasic",
+          "QueueMode": 3,
+          "MaxSize": 1,
+          "SourceOutputPath": "Image",
+          "SinkInputPath": "Image"
+        },
+        {
+          "Name": "Connection2",
+          "Source": "GrayValueTransformerBasic",
+          "Sink": "<GraphOutput>",
+          "QueueMode": 3,
+          "MaxSize": 1,
+          "SourceOutputPath": "Image",
+          "SinkInputPath": "Image"
+        }
+      ],
+      "GraphInput": {
+        "NodeData": {
+          "Outputs": []
+        }
+      },
+      "GraphOutput": {
+        "NodeData": {
+          "Inputs": [
+            {
+              "Name": "Image",
+              "Type": "Pylon::DataProcessing::Core::IImage"
+            }
+          ]
+        }
+      },
+      "Resources": {
+        "ThreadPool": {
+          "PylonMetaData": {
+            "ObjectVersion": "1.0.0",
+            "MinRequiredSoftwareVersion": "1.0.0"
+          },
+          "MaxThreadCount": 8
+        }
+      }
+    }
+  }
+}

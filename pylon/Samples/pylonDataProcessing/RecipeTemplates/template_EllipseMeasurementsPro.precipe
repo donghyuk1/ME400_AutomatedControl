@@ -1,0 +1,213 @@
+{
+  "PylonMetaData": {
+    "ObjectVersion": "1.0.0",
+    "MinRequiredSoftwareVersion": "1.0.0"
+  },
+  "PylonContent": {
+    "Ui": {
+      "UiGraphInputOutput": [
+        {
+          "id": "<GraphInput>",
+          "x": 100.33484903971363,
+          "y": 19.66666666666665
+        },
+        {
+          "id": "<GraphOutput>",
+          "x": 937.6666666666664,
+          "y": 15.666666666666657
+        }
+      ],
+      "UiNodes": [
+        {
+          "id": "CalibrationBasic",
+          "x": 429.9999999999998,
+          "y": 20.666666666666643,
+          "WatchNodePins": [
+            {
+              "nodeName": "CalibrationBasic",
+              "pinName": "Image",
+              "pinDirection": "Output"
+            }
+          ]
+        },
+        {
+          "id": "Camera",
+          "x": 181.9999999999999,
+          "y": 18.666666666666615,
+          "WatchNodePins": [
+            {
+              "nodeName": "Camera",
+              "pinName": "Image",
+              "pinDirection": "Output"
+            }
+          ]
+        },
+        {
+          "id": "EllipseMeasurementsPro",
+          "x": 671.3333333333333,
+          "y": 21.333333333333286,
+          "WatchNodePins": [
+            {
+              "nodeName": "EllipseMeasurementsPro",
+              "pinName": "Image",
+              "pinDirection": "Input"
+            },
+            {
+              "nodeName": "EllipseMeasurementsPro",
+              "pinName": "Region",
+              "pinDirection": "Output"
+            }
+          ]
+        }
+      ],
+      "PylonMetaData": {
+        "ObjectVersion": "1.1.0",
+        "MinRequiredSoftwareVersion": "1.0.0"
+      }
+    },
+    "Graph": {
+      "PylonMetaData": {
+        "ObjectVersion": "1.1.0",
+        "MinRequiredSoftwareVersion": "1.0.0"
+      },
+      "Nodes": [
+        {
+          "Name": "CalibrationBasic",
+          "Enabled": false,
+          "NodeTypeID": "2EFDAC36-7BB6-4E37-BA43-BF4F70F6BBEF",
+          "Type": "Plugin::PylonVToolPackageA::Calibration",
+          "NodeData": {
+            "PylonMetaData": {
+              "ObjectVersion": "1.2.0",
+              "MinRequiredSoftwareVersion": "1.0.0"
+            },
+            "calibrationModel": "base64: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"
+          }
+        },
+        {
+          "Name": "Camera",
+          "Enabled": true,
+          "NodeTypeID": "846BCA11-6BF2-4895-88C4-FE038F5A659C",
+          "Type": "Plugin::PylonVToolPackageBase::Camera",
+          "NodeData": {
+            "PylonMetaData": {
+              "ObjectVersion": "1.1.0",
+              "MinRequiredSoftwareVersion": "1.0.0"
+            },
+            "AcquisitionMode": 1,
+            "FixCorruptImages": 1
+          }
+        },
+        {
+          "Name": "EllipseMeasurementsPro",
+          "Enabled": false,
+          "NodeTypeID": "A07D475F-D6F3-44FB-873A-6BAD4DBA8279",
+          "NodeData": {
+            "PylonMetaData": {
+              "ObjectVersion": "1.0.0",
+              "MinRequiredSoftwareVersion": "1.0.0"
+            },
+            "settings": {
+              "SettingsVersion": 1,
+              "Row1": 0.0,
+              "Column1": 0.0,
+              "Row2": 0.0,
+              "Column2": 100.0,
+              "AngleRad": 0.0,
+              "HalfLength1": 100.0,
+              "HalfLength2": 100.0,
+              "StartAngleRad": 0.0,
+              "EndAngleRad": 6.283185307179586,
+              "Tolerance": 20.0,
+              "ProbeWidth": 20.0,
+              "MinScore": 0.7,
+              "DistanceThreshold": 3.5,
+              "NumMeasures": 40,
+              "ProbeWidthNumLinked": 1,
+              "Interpolation": 1,
+              "Sigma": 1.0,
+              "Threshold": 10.0,
+              "Transition": 3,
+              "Select": 0
+            }
+          }
+        }
+      ],
+      "Connections": [
+        {
+          "Name": "Connection",
+          "Source": "Camera",
+          "Sink": "CalibrationBasic",
+          "QueueMode": 3,
+          "MaxSize": 1,
+          "SourceOutputPath": "Image",
+          "SinkInputPath": "Image"
+        },
+        {
+          "Name": "Connection2",
+          "Source": "CalibrationBasic",
+          "Sink": "EllipseMeasurementsPro",
+          "QueueMode": 3,
+          "MaxSize": 1,
+          "SourceOutputPath": "Image",
+          "SinkInputPath": "Image"
+        },
+        {
+          "Name": "Connection3",
+          "Source": "CalibrationBasic",
+          "Sink": "EllipseMeasurementsPro",
+          "QueueMode": 3,
+          "MaxSize": 1,
+          "SourceOutputPath": "Transformation",
+          "SinkInputPath": "Transformation"
+        },
+        {
+          "Name": "Connection4",
+          "Source": "EllipseMeasurementsPro",
+          "Sink": "<GraphOutput>",
+          "QueueMode": 3,
+          "MaxSize": 1,
+          "SourceOutputPath": "Ellipse_m",
+          "SinkInputPath": "Ellipse_m"
+        },
+        {
+          "Name": "Connection5",
+          "Source": "EllipseMeasurementsPro",
+          "Sink": "<GraphOutput>",
+          "QueueMode": 3,
+          "MaxSize": 1,
+          "SourceOutputPath": "Score",
+          "SinkInputPath": "Score"
+        }
+      ],
+      "GraphInput": {
+        "NodeData": {
+          "Outputs": []
+        }
+      },
+      "GraphOutput": {
+        "NodeData": {
+          "Inputs": [
+            {
+              "Name": "Ellipse_m",
+              "Type": "Pylon::DataProcessing::Core::IEllipseF"
+            },
+            {
+              "Name": "Score",
+              "Type": "Pylon::DataProcessing::Core::IFloat"
+            }
+          ]
+        }
+      },
+      "Resources": {
+        "ThreadPool": {
+          "PylonMetaData": {
+            "ObjectVersion": "1.0.0",
+            "MinRequiredSoftwareVersion": "1.0.0"
+          },
+          "MaxThreadCount": 8
+        }
+      }
+    }
+  }
+}

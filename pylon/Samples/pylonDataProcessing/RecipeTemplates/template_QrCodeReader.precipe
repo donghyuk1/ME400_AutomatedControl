@@ -1,0 +1,159 @@
+{
+  "PylonMetaData": {
+    "ObjectVersion": "1.0.0",
+    "MinRequiredSoftwareVersion": "1.0.0"
+  },
+  "PylonContent": {
+    "Ui": {
+      "UiGraphInputOutput": [
+        {
+          "id": "<GraphInput>",
+          "x": 80.0,
+          "y": 108.5
+        },
+        {
+          "id": "<GraphOutput>",
+          "x": 762.0000000000001,
+          "y": 110.9
+        }
+      ],
+      "UiNodes": [
+        {
+          "id": "QRCodeReader",
+          "x": 478.0,
+          "y": 114.79999999999998,
+          "WatchNodePins": [
+            {
+              "nodeName": "QRCodeReader",
+              "pinName": "Image",
+              "pinDirection": "Input"
+            },
+            {
+              "nodeName": "QRCodeReader",
+              "pinName": "Texts",
+              "pinDirection": "Output"
+            },
+            {
+              "nodeName": "QRCodeReader",
+              "pinName": "Regions",
+              "pinDirection": "Output"
+            }
+          ]
+        },
+        {
+          "id": "Camera",
+          "x": 183.39999999999998,
+          "y": 115.60000000000001,
+          "WatchNodePins": [
+            {
+              "nodeName": "Camera",
+              "pinName": "Image",
+              "pinDirection": "Output"
+            }
+          ]
+        }
+      ],
+      "PylonMetaData": {
+        "ObjectVersion": "1.1.0",
+        "MinRequiredSoftwareVersion": "1.0.0"
+      }
+    },
+    "Graph": {
+      "PylonMetaData": {
+        "ObjectVersion": "1.1.0",
+        "MinRequiredSoftwareVersion": "1.0.0"
+      },
+      "Nodes": [
+        {
+          "Name": "Camera",
+          "Enabled": true,
+          "NodeTypeID": "846BCA11-6BF2-4895-88C4-FE038F5A659C",
+          "Type": "Plugin::PylonVToolPackageBase::Camera",
+          "NodeData": {
+            "PylonMetaData": {
+              "ObjectVersion": "1.1.0",
+              "MinRequiredSoftwareVersion": "1.0.0"
+            },
+            "AcquisitionMode": 1,
+            "FixCorruptImages": 1
+          }
+        },
+        {
+          "Name": "QRCodeReader",
+          "Enabled": false,
+          "NodeTypeID": "74A180AB-F6BC-44B6-A17C-A3C62FD75432",
+          "Type": "Plugin::PylonVToolPackageA::QrCode",
+          "NodeData": {
+            "PylonMetaData": {
+              "ObjectVersion": "1.2.0",
+              "MinRequiredSoftwareVersion": "1.0.0"
+            },
+            "settings": {
+              "SettingsVersion": 1,
+              "MaxNumCodes": 1,
+              "TimeoutSecs": -1.0,
+              "TimeoutEnabled": false
+            }
+          }
+        }
+      ],
+      "Connections": [
+        {
+          "Name": "Connection",
+          "Source": "Camera",
+          "Sink": "QRCodeReader",
+          "QueueMode": 3,
+          "MaxSize": 1,
+          "SourceOutputPath": "Image",
+          "SinkInputPath": "Image"
+        },
+        {
+          "Name": "Connection2",
+          "Source": "QRCodeReader",
+          "Sink": "<GraphOutput>",
+          "QueueMode": 3,
+          "MaxSize": 1,
+          "SourceOutputPath": "Texts",
+          "SinkInputPath": "Texts"
+        },
+        {
+          "Name": "Connection3",
+          "Source": "QRCodeReader",
+          "Sink": "<GraphOutput>",
+          "QueueMode": 3,
+          "MaxSize": 1,
+          "SourceOutputPath": "Regions",
+          "SinkInputPath": "Regions"
+        }
+      ],
+      "GraphInput": {
+        "NodeData": {
+          "Outputs": []
+        }
+      },
+      "GraphOutput": {
+        "NodeData": {
+          "Inputs": [
+            {
+              "Name": "Texts",
+              "Type": "Pylon::DataProcessing::Core::IStringArray"
+            },
+            {
+              "Name": "Regions",
+              "Type": "Pylon::DataProcessing::Core::IRegionArray"
+            }
+          ]
+        }
+      },
+      "Resources": {
+        "ThreadPool": {
+          "PylonMetaData": {
+            "ObjectVersion": "1.0.0",
+            "MinRequiredSoftwareVersion": "1.0.0"
+          },
+          "MaxThreadCount": 8
+        }
+      }
+    }
+  }
+}

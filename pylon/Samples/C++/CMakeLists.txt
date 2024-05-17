@@ -1,0 +1,60 @@
+# Root CMakeLists.txt for the overall Pylon project
+cmake_minimum_required(VERSION 3.14)
+cmake_policy(SET CMP0074 NEW)    # respect <PACKAGE>_ROOT variables in "find_package"
+include(CMakePrintHelpers)
+
+project(PylonSamples VERSION 0.0)
+find_package(pylon 7.4.0 REQUIRED)
+
+
+
+add_subdirectory(DeviceRemovalHandling)
+add_subdirectory(Grab)
+add_subdirectory(Grab_CameraEvents)
+add_subdirectory(Grab_UsingBufferFactory)
+add_subdirectory(Grab_MultipleCameras)
+add_subdirectory(Grab_UsingExposureEndEvent)
+add_subdirectory(Grab_UsingSequencer)
+add_subdirectory(Grab_MultiCast)
+add_subdirectory(Grab_UsingGrabLoopThread)
+add_subdirectory(Grab_UsingActionCommand)
+add_subdirectory(Grab_ChunkImage)
+
+if (NOT DEFINED APPLE)
+add_subdirectory(Utility_GrabVideo)
+add_subdirectory(Utility_FFC)
+endif()
+if (WIN32)
+add_subdirectory(Utility_GrabAvi)
+endif()
+
+if (_pylon_PylonGUI_FOUND)
+add_subdirectory(Utility_Image)
+endif()
+
+add_subdirectory(Grab_Strategies)
+add_subdirectory(ParametrizeCamera_NativeParameterAccess)
+add_subdirectory(ParametrizeCamera_Shading)
+add_subdirectory(ParametrizeCamera_UserSets)
+add_subdirectory(ParametrizeCamera_AutoFunctions)
+add_subdirectory(ParametrizeCamera_SerialCommunication)
+add_subdirectory(ParametrizeCamera_LookupTable)
+add_subdirectory(ParametrizeCamera_LoadAndSave)
+add_subdirectory(ParametrizeCamera_GenericParameterAccess)
+add_subdirectory(ParametrizeCamera_Configurations)
+add_subdirectory(Utility_ImageDecompressor)
+if (NOT DEFINED APPLE)
+add_subdirectory(Utility_InstantInterface)
+endif()
+add_subdirectory(Utility_ImageLoadAndSave)
+add_subdirectory(Utility_ImageFormatConverter)
+add_subdirectory(Utility_IpConfig)
+
+find_package(MFC QUIET)
+if (MFC_FOUND)
+    add_subdirectory(GUI_MFC)
+    add_subdirectory(GUI_MFCMultiCam)
+else()
+    message("MFC not found, skipping MFC Samples")
+endif()
+

@@ -1,0 +1,190 @@
+{
+  "PylonMetaData": {
+    "ObjectVersion": "1.0.0",
+    "MinRequiredSoftwareVersion": "1.0.0"
+  },
+  "PylonContent": {
+    "Ui": {
+      "UiGraphInputOutput": [
+        {
+          "id": "<GraphInput>",
+          "x": 81.3333333333334,
+          "y": 81.00000000000003
+        },
+        {
+          "id": "<GraphOutput>",
+          "x": 954.4897969563801,
+          "y": 90.3333333333334
+        }
+      ],
+      "UiNodes": [
+        {
+          "id": "ImageSmoothingBasic",
+          "x": 434.6666666666664,
+          "y": 161.6666666666666,
+          "WatchNodePins": [
+            {
+              "nodeName": "ImageSmoothingBasic",
+              "pinName": "Image",
+              "pinDirection": "Input"
+            },
+            {
+              "nodeName": "ImageSmoothingBasic",
+              "pinName": "Image",
+              "pinDirection": "Output"
+            }
+          ]
+        },
+        {
+          "id": "Camera",
+          "x": 163.33333333333326,
+          "y": 92.33333333333337,
+          "WatchNodePins": [
+            {
+              "nodeName": "Camera",
+              "pinName": "Image",
+              "pinDirection": "Output"
+            }
+          ]
+        },
+        {
+          "id": "ImageCombinerBasic",
+          "x": 694.6666666666664,
+          "y": 92.33333333333331,
+          "WatchNodePins": [
+            {
+              "nodeName": "ImageCombinerBasic",
+              "pinName": "Image",
+              "pinDirection": "Output"
+            }
+          ]
+        }
+      ],
+      "PylonMetaData": {
+        "ObjectVersion": "1.1.0",
+        "MinRequiredSoftwareVersion": "1.0.0"
+      }
+    },
+    "Graph": {
+      "PylonMetaData": {
+        "ObjectVersion": "1.1.0",
+        "MinRequiredSoftwareVersion": "1.0.0"
+      },
+      "Nodes": [
+        {
+          "Name": "Camera",
+          "Enabled": true,
+          "NodeTypeID": "846BCA11-6BF2-4895-88C4-FE038F5A659C",
+          "Type": "Plugin::PylonVToolPackageBase::Camera",
+          "NodeData": {
+            "PylonMetaData": {
+              "ObjectVersion": "1.1.0",
+              "MinRequiredSoftwareVersion": "1.0.0"
+            },
+            "AcquisitionMode": 1,
+            "FixCorruptImages": 1
+          }
+        },
+        {
+          "Name": "ImageCombinerBasic",
+          "Enabled": false,
+          "NodeTypeID": "EE2436B2-F61C-4D35-9E64-C02AEDA19B39",
+          "Type": "Plugin::PylonVToolPackageA::ImageCombinerBasic",
+          "NodeData": {
+            "PylonMetaData": {
+              "ObjectVersion": "1.0.0",
+              "MinRequiredSoftwareVersion": "1.0.0"
+            },
+            "settings": {
+              "SettingsVersion": 1,
+              "Operation": 1,
+              "Add": 0,
+              "Mult": 0
+            }
+          }
+        },
+        {
+          "Name": "ImageSmoothingBasic",
+          "Enabled": false,
+          "NodeTypeID": "1C3B8528-0025-4E6F-AE33-B8819FDD1538",
+          "Type": "Plugin::PylonVToolPackageA::ImageSmoothingBasic",
+          "NodeData": {
+            "PylonMetaData": {
+              "ObjectVersion": "1.0.0",
+              "MinRequiredSoftwareVersion": "1.0.0"
+            },
+            "settings": {
+              "SettingsVersion": 1,
+              "Operation": 1,
+              "MaskWidth": 9,
+              "MaskHeight": 9,
+              "MaskLinked": true
+            }
+          }
+        }
+      ],
+      "Connections": [
+        {
+          "Name": "Connection",
+          "Source": "Camera",
+          "Sink": "ImageSmoothingBasic",
+          "QueueMode": 3,
+          "MaxSize": 1,
+          "SourceOutputPath": "Image",
+          "SinkInputPath": "Image"
+        },
+        {
+          "Name": "Connection2",
+          "Source": "Camera",
+          "Sink": "ImageCombinerBasic",
+          "QueueMode": 3,
+          "MaxSize": 1,
+          "SourceOutputPath": "Image",
+          "SinkInputPath": "Image1"
+        },
+        {
+          "Name": "Connection3",
+          "Source": "ImageSmoothingBasic",
+          "Sink": "ImageCombinerBasic",
+          "QueueMode": 3,
+          "MaxSize": 1,
+          "SourceOutputPath": "Image",
+          "SinkInputPath": "Image2"
+        },
+        {
+          "Name": "Connection4",
+          "Source": "ImageCombinerBasic",
+          "Sink": "<GraphOutput>",
+          "QueueMode": 3,
+          "MaxSize": 1,
+          "SourceOutputPath": "Image",
+          "SinkInputPath": "Image"
+        }
+      ],
+      "GraphInput": {
+        "NodeData": {
+          "Outputs": []
+        }
+      },
+      "GraphOutput": {
+        "NodeData": {
+          "Inputs": [
+            {
+              "Name": "Image",
+              "Type": "Pylon::DataProcessing::Core::IImage"
+            }
+          ]
+        }
+      },
+      "Resources": {
+        "ThreadPool": {
+          "PylonMetaData": {
+            "ObjectVersion": "1.0.0",
+            "MinRequiredSoftwareVersion": "1.0.0"
+          },
+          "MaxThreadCount": 8
+        }
+      }
+    }
+  }
+}

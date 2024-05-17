@@ -1,0 +1,205 @@
+{
+  "PylonMetaData": {
+    "ObjectVersion": "1.0.0",
+    "MinRequiredSoftwareVersion": "1.0.0"
+  },
+  "PylonContent": {
+    "Ui": {
+      "UiGraphInputOutput": [
+        {
+          "id": "<GraphInput>",
+          "x": 105.78787731664568,
+          "y": 12.606066350875267
+        },
+        {
+          "id": "<GraphOutput>",
+          "x": 928.3333333333331,
+          "y": 6.333333333333314
+        }
+      ],
+      "UiNodes": [
+        {
+          "id": "Camera",
+          "x": 183.33333333333326,
+          "y": 24.220125786163507,
+          "WatchNodePins": [
+            {
+              "nodeName": "Camera",
+              "pinName": "Image",
+              "pinDirection": "Output"
+            }
+          ]
+        },
+        {
+          "id": "DataMatrixCodeReaderStarter",
+          "x": 678.0,
+          "y": 18.88679245283018,
+          "WatchNodePins": [
+            {
+              "nodeName": "DataMatrixCodeReaderStarter",
+              "pinName": "Image",
+              "pinDirection": "Input"
+            },
+            {
+              "nodeName": "DataMatrixCodeReaderStarter",
+              "pinName": "Roi",
+              "pinDirection": "Input"
+            },
+            {
+              "nodeName": "DataMatrixCodeReaderStarter",
+              "pinName": "Texts",
+              "pinDirection": "Output"
+            },
+            {
+              "nodeName": "DataMatrixCodeReaderStarter",
+              "pinName": "Regions",
+              "pinDirection": "Output"
+            }
+          ]
+        },
+        {
+          "id": "RoiCreator",
+          "x": 437.33333333333326,
+          "y": 90.22012578616352,
+          "WatchNodePins": [
+            {
+              "nodeName": "RoiCreator",
+              "pinName": "Image",
+              "pinDirection": "Input"
+            },
+            {
+              "nodeName": "RoiCreator",
+              "pinName": "Roi",
+              "pinDirection": "Output"
+            }
+          ]
+        }
+      ],
+      "PylonMetaData": {
+        "ObjectVersion": "1.1.0",
+        "MinRequiredSoftwareVersion": "1.0.0"
+      }
+    },
+    "Graph": {
+      "PylonMetaData": {
+        "ObjectVersion": "1.1.0",
+        "MinRequiredSoftwareVersion": "1.0.0"
+      },
+      "Nodes": [
+        {
+          "Name": "Camera",
+          "Enabled": true,
+          "NodeTypeID": "846BCA11-6BF2-4895-88C4-FE038F5A659C",
+          "Type": "Plugin::PylonVToolPackageBase::Camera",
+          "NodeData": {
+            "PylonMetaData": {
+              "ObjectVersion": "1.1.0",
+              "MinRequiredSoftwareVersion": "1.0.0"
+            },
+            "AcquisitionMode": 1,
+            "FixCorruptImages": 1
+          }
+        },
+        {
+          "Name": "DataMatrixCodeReaderStarter",
+          "Enabled": false,
+          "NodeTypeID": "7F0C2ADB-B407-4443-9D56-18BC85791951",
+          "Type": "Plugin::PylonVToolPackageB::DataMatrixCodeReaderStarter",
+          "NodeData": {
+            "PylonMetaData": {
+              "ObjectVersion": "1.0.0",
+              "MinRequiredSoftwareVersion": "1.0.0"
+            },
+            "settings": {
+              "SettingsVersion": 1,
+              "MaxNumDataMatrixCodes": 1
+            }
+          }
+        },
+        {
+          "Name": "RoiCreator",
+          "Enabled": false,
+          "NodeTypeID": "566E72E7-5C8A-459F-9E34-8C5A1A04B37A",
+          "NodeData": {
+            "PylonMetaData": {
+              "ObjectVersion": "1.0.0",
+              "MinRequiredSoftwareVersion": "1.0.0"
+            },
+            "settings": {
+              "SettingsVersion": 1,
+              "Rectangle2": {
+                "RowCenter": 0.0,
+                "ColumnCenter": 0.0,
+                "AngleRad": 0.0,
+                "HalfLength1": 0.0,
+                "HalfLength2": 0.0
+              }
+            }
+          }
+        }
+      ],
+      "Connections": [
+        {
+          "Name": "Connection",
+          "Source": "Camera",
+          "Sink": "DataMatrixCodeReaderStarter",
+          "QueueMode": 3,
+          "MaxSize": 1,
+          "SourceOutputPath": "Image",
+          "SinkInputPath": "Image"
+        },
+        {
+          "Name": "Connection2",
+          "Source": "Camera",
+          "Sink": "RoiCreator",
+          "QueueMode": 3,
+          "MaxSize": 1,
+          "SourceOutputPath": "Image",
+          "SinkInputPath": "Image"
+        },
+        {
+          "Name": "Connection3",
+          "Source": "RoiCreator",
+          "Sink": "DataMatrixCodeReaderStarter",
+          "QueueMode": 3,
+          "MaxSize": 1,
+          "SourceOutputPath": "Roi",
+          "SinkInputPath": "Roi"
+        },
+        {
+          "Name": "Connection4",
+          "Source": "DataMatrixCodeReaderStarter",
+          "Sink": "<GraphOutput>",
+          "QueueMode": 3,
+          "MaxSize": 1,
+          "SourceOutputPath": "Texts",
+          "SinkInputPath": "Texts"
+        }
+      ],
+      "GraphInput": {
+        "NodeData": {
+          "Outputs": []
+        }
+      },
+      "GraphOutput": {
+        "NodeData": {
+          "Inputs": [
+            {
+              "Name": "Texts",
+              "Type": "Pylon::DataProcessing::Core::IStringArray"
+            }
+          ]
+        }
+      },
+      "Resources": {
+        "ThreadPool": {
+          "PylonMetaData": {
+            "ObjectVersion": "1.0.0",
+            "MinRequiredSoftwareVersion": "1.0.0"
+          },
+          "MaxThreadCount": 8
+        }
+      }
+    }
+  }
+}
