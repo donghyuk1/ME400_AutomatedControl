@@ -57,27 +57,27 @@ include CMakeFiles/hough_test.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/hough_test.dir/flags.make
 
-CMakeFiles/hough_test.dir/hough_test.o: CMakeFiles/hough_test.dir/flags.make
-CMakeFiles/hough_test.dir/hough_test.o: ../hough_test.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/donghyuk/workspace/ME400/AutomatedControl/openCV/test/cv_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/hough_test.dir/hough_test.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hough_test.dir/hough_test.o -c /home/donghyuk/workspace/ME400/AutomatedControl/openCV/test/cv_test/hough_test.cpp
+CMakeFiles/hough_test.dir/hough_test.cpp.o: CMakeFiles/hough_test.dir/flags.make
+CMakeFiles/hough_test.dir/hough_test.cpp.o: ../hough_test.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/donghyuk/workspace/ME400/AutomatedControl/openCV/test/cv_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/hough_test.dir/hough_test.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hough_test.dir/hough_test.cpp.o -c /home/donghyuk/workspace/ME400/AutomatedControl/openCV/test/cv_test/hough_test.cpp
 
-CMakeFiles/hough_test.dir/hough_test.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/hough_test.dir/hough_test.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/donghyuk/workspace/ME400/AutomatedControl/openCV/test/cv_test/hough_test.cpp > CMakeFiles/hough_test.dir/hough_test.i
+CMakeFiles/hough_test.dir/hough_test.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/hough_test.dir/hough_test.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/donghyuk/workspace/ME400/AutomatedControl/openCV/test/cv_test/hough_test.cpp > CMakeFiles/hough_test.dir/hough_test.cpp.i
 
-CMakeFiles/hough_test.dir/hough_test.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hough_test.dir/hough_test.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/donghyuk/workspace/ME400/AutomatedControl/openCV/test/cv_test/hough_test.cpp -o CMakeFiles/hough_test.dir/hough_test.s
+CMakeFiles/hough_test.dir/hough_test.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hough_test.dir/hough_test.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/donghyuk/workspace/ME400/AutomatedControl/openCV/test/cv_test/hough_test.cpp -o CMakeFiles/hough_test.dir/hough_test.cpp.s
 
 # Object files for target hough_test
 hough_test_OBJECTS = \
-"CMakeFiles/hough_test.dir/hough_test.o"
+"CMakeFiles/hough_test.dir/hough_test.cpp.o"
 
 # External object files for target hough_test
 hough_test_EXTERNAL_OBJECTS =
 
-hough_test: CMakeFiles/hough_test.dir/hough_test.o
+hough_test: CMakeFiles/hough_test.dir/hough_test.cpp.o
 hough_test: CMakeFiles/hough_test.dir/build.make
 hough_test: /usr/lib/x86_64-linux-gnu/libopencv_stitching.so.4.2.0
 hough_test: /usr/lib/x86_64-linux-gnu/libopencv_aruco.so.4.2.0

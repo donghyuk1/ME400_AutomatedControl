@@ -22,8 +22,12 @@
 	IS OUTSIDE THE SCOPE OF THIS LICENSE.
 */
 // Include files to use OpenCV API.
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/calib3d.hpp>
+
 
 // Include files to use the PYLON API.
 #include <pylon/PylonIncludes.h>
@@ -45,6 +49,12 @@ using namespace std;
 
 // Number of images to be grabbed.
 static const uint32_t c_countOfImagesToGrab = 2000;
+
+// Camera calibration parameters;
+Mat matrix = (cv::Mat_<double>(3, 3) << 1.16840596e+03, 0.0, 9.88861582e+02, 0.0, 1.17207804e+03, 6.02792542e+02,
+        0.0, 0.0, 1.0);
+Mat distortion = (cv::Mat_<double>(1, 5) << -0.34674492, 0.20385693, 0.00038561, -0.0008934, -0.09134574);
+
 
 int main(int argc, char* argv[])
 {
@@ -79,7 +89,9 @@ int main(int argc, char* argv[])
         CPylonImage pylonImage;
 
         // Create an OpenCV image
-        Mat openCvImage, img_gray, img_edge, img_result;
+        Mat openCvImage, img_downscaled, img_gray, img_edge, img_result;
+        Mat img_gray_undistorted;
+
 
         // Start the grabbing of c_countOfImagesToGrab images.
         // The camera device is parameterized with a default configuration which
@@ -112,13 +124,18 @@ int main(int argc, char* argv[])
                 // Create an OpenCV image out of pylon image
                 openCvImage= cv::Mat(ptrGrabResult->GetHeight(), ptrGrabResult->GetWidth(), CV_8UC3, (uint8_t *) pylonImage.GetBuffer());
 
+                //resize(openCvImage, img_downscaled, Size(), 0.5, 0.5);
+
                 // hough transform using openCV
                 cvtColor(openCvImage, img_gray, COLOR_BGR2GRAY);
-                Canny(img_gray, img_edge, 50, 200, 3);
+                undistort(img_gray, img_gray_undistorted, matrix, distortion);
+
+
+                Canny(img_gray_undistorted, img_edge, 50, 200, 3);
                 cvtColor(img_edge, img_result, COLOR_GRAY2BGR);
 
                 vector<Vec4i> lines;
-                HoughLinesP(img_edge, lines, 1, CV_PI/180, 50, 50, 10);
+                HoughLinesP(img_edge, lines, 2, CV_PI/180, 50, 50, 10);
 
                 for(size_t i = 0; i < lines.size(); i++){
                     Vec4i l = lines[i];

@@ -57,27 +57,27 @@ include CMakeFiles/cv_test.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/cv_test.dir/flags.make
 
-CMakeFiles/cv_test.dir/cv_test.o: CMakeFiles/cv_test.dir/flags.make
-CMakeFiles/cv_test.dir/cv_test.o: ../cv_test.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/donghyuk/workspace/ME400/AutomatedControl/openCV/test/cv_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cv_test.dir/cv_test.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cv_test.dir/cv_test.o -c /home/donghyuk/workspace/ME400/AutomatedControl/openCV/test/cv_test/cv_test.cpp
+CMakeFiles/cv_test.dir/cv_test.cpp.o: CMakeFiles/cv_test.dir/flags.make
+CMakeFiles/cv_test.dir/cv_test.cpp.o: ../cv_test.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/donghyuk/workspace/ME400/AutomatedControl/openCV/test/cv_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cv_test.dir/cv_test.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cv_test.dir/cv_test.cpp.o -c /home/donghyuk/workspace/ME400/AutomatedControl/openCV/test/cv_test/cv_test.cpp
 
-CMakeFiles/cv_test.dir/cv_test.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cv_test.dir/cv_test.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/donghyuk/workspace/ME400/AutomatedControl/openCV/test/cv_test/cv_test.cpp > CMakeFiles/cv_test.dir/cv_test.i
+CMakeFiles/cv_test.dir/cv_test.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cv_test.dir/cv_test.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/donghyuk/workspace/ME400/AutomatedControl/openCV/test/cv_test/cv_test.cpp > CMakeFiles/cv_test.dir/cv_test.cpp.i
 
-CMakeFiles/cv_test.dir/cv_test.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cv_test.dir/cv_test.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/donghyuk/workspace/ME400/AutomatedControl/openCV/test/cv_test/cv_test.cpp -o CMakeFiles/cv_test.dir/cv_test.s
+CMakeFiles/cv_test.dir/cv_test.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cv_test.dir/cv_test.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/donghyuk/workspace/ME400/AutomatedControl/openCV/test/cv_test/cv_test.cpp -o CMakeFiles/cv_test.dir/cv_test.cpp.s
 
 # Object files for target cv_test
 cv_test_OBJECTS = \
-"CMakeFiles/cv_test.dir/cv_test.o"
+"CMakeFiles/cv_test.dir/cv_test.cpp.o"
 
 # External object files for target cv_test
 cv_test_EXTERNAL_OBJECTS =
 
-cv_test: CMakeFiles/cv_test.dir/cv_test.o
+cv_test: CMakeFiles/cv_test.dir/cv_test.cpp.o
 cv_test: CMakeFiles/cv_test.dir/build.make
 cv_test: /usr/lib/x86_64-linux-gnu/libopencv_stitching.so.4.2.0
 cv_test: /usr/lib/x86_64-linux-gnu/libopencv_aruco.so.4.2.0

@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/openCVGrab_.dir/openCVGrab.cpp.o  -o openCVGrab_ 

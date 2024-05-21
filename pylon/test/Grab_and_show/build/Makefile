@@ -170,6 +170,19 @@ openCVGrab/fast:
 .PHONY : openCVGrab/fast
 
 #=============================================================================
+# Target rules for targets named openCVGrab_undistort
+
+# Build rule for target.
+openCVGrab_undistort: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 openCVGrab_undistort
+.PHONY : openCVGrab_undistort
+
+# fast build rule for target.
+openCVGrab_undistort/fast:
+	$(MAKE) -f CMakeFiles/openCVGrab_undistort.dir/build.make CMakeFiles/openCVGrab_undistort.dir/build
+.PHONY : openCVGrab_undistort/fast
+
+#=============================================================================
 # Target rules for targets named Grab_and_show
 
 # Build rule for target.
@@ -236,6 +249,33 @@ openCVGrab.cpp.s:
 	$(MAKE) -f CMakeFiles/openCVGrab.dir/build.make CMakeFiles/openCVGrab.dir/openCVGrab.cpp.s
 .PHONY : openCVGrab.cpp.s
 
+openCVGrab_undistort.o: openCVGrab_undistort.cpp.o
+
+.PHONY : openCVGrab_undistort.o
+
+# target to build an object file
+openCVGrab_undistort.cpp.o:
+	$(MAKE) -f CMakeFiles/openCVGrab_undistort.dir/build.make CMakeFiles/openCVGrab_undistort.dir/openCVGrab_undistort.cpp.o
+.PHONY : openCVGrab_undistort.cpp.o
+
+openCVGrab_undistort.i: openCVGrab_undistort.cpp.i
+
+.PHONY : openCVGrab_undistort.i
+
+# target to preprocess a source file
+openCVGrab_undistort.cpp.i:
+	$(MAKE) -f CMakeFiles/openCVGrab_undistort.dir/build.make CMakeFiles/openCVGrab_undistort.dir/openCVGrab_undistort.cpp.i
+.PHONY : openCVGrab_undistort.cpp.i
+
+openCVGrab_undistort.s: openCVGrab_undistort.cpp.s
+
+.PHONY : openCVGrab_undistort.s
+
+# target to generate assembly for a file
+openCVGrab_undistort.cpp.s:
+	$(MAKE) -f CMakeFiles/openCVGrab_undistort.dir/build.make CMakeFiles/openCVGrab_undistort.dir/openCVGrab_undistort.cpp.s
+.PHONY : openCVGrab_undistort.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -249,6 +289,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... install/local"
 	@echo "... openCVGrab"
+	@echo "... openCVGrab_undistort"
 	@echo "... Grab_and_show"
 	@echo "... Grab_and_show.o"
 	@echo "... Grab_and_show.i"
@@ -256,6 +297,9 @@ help:
 	@echo "... openCVGrab.o"
 	@echo "... openCVGrab.i"
 	@echo "... openCVGrab.s"
+	@echo "... openCVGrab_undistort.o"
+	@echo "... openCVGrab_undistort.i"
+	@echo "... openCVGrab_undistort.s"
 .PHONY : help
 
 

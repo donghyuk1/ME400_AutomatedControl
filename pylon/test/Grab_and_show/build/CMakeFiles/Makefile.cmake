@@ -58,5 +58,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/openCVGrab.dir/DependInfo.cmake"
+  "CMakeFiles/openCVGrab_undistort.dir/DependInfo.cmake"
   "CMakeFiles/Grab_and_show.dir/DependInfo.cmake"
   )

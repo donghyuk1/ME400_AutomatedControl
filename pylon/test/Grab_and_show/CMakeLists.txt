@@ -15,8 +15,13 @@ add_executable( Grab_and_show Grab_and_show.cpp)
 target_link_libraries( Grab_and_show PRIVATE pylon::pylon )
 target_link_libraries( Grab_and_show PRIVATE ${OpenCV_LIBS})
 
+add_executable(openCVGrab openCVGrab.cpp)
 target_link_libraries(openCVGrab pylon::pylon)
 target_link_libraries(openCVGrab ${OpenCV_LIBS})
 
-install( TARGETS Grab_and_show openCVGrab)
+
+add_executable(openCVGrab_undistort openCVGrab_undistort.cpp)
+target_link_libraries(openCVGrab_undistort pylon::pylon)
+target_link_libraries(openCVGrab_undistort ${OpenCV_LIBS})
+install( TARGETS Grab_and_show openCVGrab openCVGrab_undistort)
 

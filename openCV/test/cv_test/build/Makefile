@@ -68,6 +68,17 @@ install/local/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
@@ -100,17 +111,6 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
-
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
 
 # Special rule for the target install/strip
 install/strip: preinstall
@@ -157,6 +157,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named undistort
+
+# Build rule for target.
+undistort: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 undistort
+.PHONY : undistort
+
+# fast build rule for target.
+undistort/fast:
+	$(MAKE) -f CMakeFiles/undistort.dir/build.make CMakeFiles/undistort.dir/build
+.PHONY : undistort/fast
+
+#=============================================================================
 # Target rules for targets named hough_test
 
 # Build rule for target.
@@ -182,35 +195,86 @@ cv_test/fast:
 	$(MAKE) -f CMakeFiles/cv_test.dir/build.make CMakeFiles/cv_test.dir/build
 .PHONY : cv_test/fast
 
-# target to build an object file
-cv_test.o:
-	$(MAKE) -f CMakeFiles/cv_test.dir/build.make CMakeFiles/cv_test.dir/cv_test.o
+cv_test.o: cv_test.cpp.o
+
 .PHONY : cv_test.o
 
-# target to preprocess a source file
-cv_test.i:
-	$(MAKE) -f CMakeFiles/cv_test.dir/build.make CMakeFiles/cv_test.dir/cv_test.i
+# target to build an object file
+cv_test.cpp.o:
+	$(MAKE) -f CMakeFiles/cv_test.dir/build.make CMakeFiles/cv_test.dir/cv_test.cpp.o
+.PHONY : cv_test.cpp.o
+
+cv_test.i: cv_test.cpp.i
+
 .PHONY : cv_test.i
 
-# target to generate assembly for a file
-cv_test.s:
-	$(MAKE) -f CMakeFiles/cv_test.dir/build.make CMakeFiles/cv_test.dir/cv_test.s
+# target to preprocess a source file
+cv_test.cpp.i:
+	$(MAKE) -f CMakeFiles/cv_test.dir/build.make CMakeFiles/cv_test.dir/cv_test.cpp.i
+.PHONY : cv_test.cpp.i
+
+cv_test.s: cv_test.cpp.s
+
 .PHONY : cv_test.s
 
-# target to build an object file
-hough_test.o:
-	$(MAKE) -f CMakeFiles/hough_test.dir/build.make CMakeFiles/hough_test.dir/hough_test.o
+# target to generate assembly for a file
+cv_test.cpp.s:
+	$(MAKE) -f CMakeFiles/cv_test.dir/build.make CMakeFiles/cv_test.dir/cv_test.cpp.s
+.PHONY : cv_test.cpp.s
+
+hough_test.o: hough_test.cpp.o
+
 .PHONY : hough_test.o
 
-# target to preprocess a source file
-hough_test.i:
-	$(MAKE) -f CMakeFiles/hough_test.dir/build.make CMakeFiles/hough_test.dir/hough_test.i
+# target to build an object file
+hough_test.cpp.o:
+	$(MAKE) -f CMakeFiles/hough_test.dir/build.make CMakeFiles/hough_test.dir/hough_test.cpp.o
+.PHONY : hough_test.cpp.o
+
+hough_test.i: hough_test.cpp.i
+
 .PHONY : hough_test.i
 
-# target to generate assembly for a file
-hough_test.s:
-	$(MAKE) -f CMakeFiles/hough_test.dir/build.make CMakeFiles/hough_test.dir/hough_test.s
+# target to preprocess a source file
+hough_test.cpp.i:
+	$(MAKE) -f CMakeFiles/hough_test.dir/build.make CMakeFiles/hough_test.dir/hough_test.cpp.i
+.PHONY : hough_test.cpp.i
+
+hough_test.s: hough_test.cpp.s
+
 .PHONY : hough_test.s
+
+# target to generate assembly for a file
+hough_test.cpp.s:
+	$(MAKE) -f CMakeFiles/hough_test.dir/build.make CMakeFiles/hough_test.dir/hough_test.cpp.s
+.PHONY : hough_test.cpp.s
+
+undistort.o: undistort.cpp.o
+
+.PHONY : undistort.o
+
+# target to build an object file
+undistort.cpp.o:
+	$(MAKE) -f CMakeFiles/undistort.dir/build.make CMakeFiles/undistort.dir/undistort.cpp.o
+.PHONY : undistort.cpp.o
+
+undistort.i: undistort.cpp.i
+
+.PHONY : undistort.i
+
+# target to preprocess a source file
+undistort.cpp.i:
+	$(MAKE) -f CMakeFiles/undistort.dir/build.make CMakeFiles/undistort.dir/undistort.cpp.i
+.PHONY : undistort.cpp.i
+
+undistort.s: undistort.cpp.s
+
+.PHONY : undistort.s
+
+# target to generate assembly for a file
+undistort.cpp.s:
+	$(MAKE) -f CMakeFiles/undistort.dir/build.make CMakeFiles/undistort.dir/undistort.cpp.s
+.PHONY : undistort.cpp.s
 
 # Help Target
 help:
@@ -219,10 +283,11 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... install/local"
+	@echo "... edit_cache"
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... edit_cache"
+	@echo "... undistort"
 	@echo "... hough_test"
 	@echo "... install/strip"
 	@echo "... cv_test"
@@ -232,6 +297,9 @@ help:
 	@echo "... hough_test.o"
 	@echo "... hough_test.i"
 	@echo "... hough_test.s"
+	@echo "... undistort.o"
+	@echo "... undistort.i"
+	@echo "... undistort.s"
 .PHONY : help
 
 

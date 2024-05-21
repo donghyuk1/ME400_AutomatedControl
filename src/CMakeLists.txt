@@ -12,9 +12,12 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 
 
 add_executable( realtime_hough realtime_hough.cpp)
-
 target_link_libraries(realtime_hough pylon::pylon)
 target_link_libraries(realtime_hough ${OpenCV_LIBS})
 
-install( TARGETS realtime_hough)
+add_executable( realtime_hough_undistorted realtime_hough_undistort.cpp)
+target_link_libraries(realtime_hough_undistorted pylon::pylon)
+target_link_libraries(realtime_hough_undistorted ${OpenCV_LIBS})
+
+install( TARGETS realtime_hough_undistorted)
 

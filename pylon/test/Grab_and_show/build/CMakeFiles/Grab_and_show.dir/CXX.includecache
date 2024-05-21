@@ -19,8 +19,6 @@ opencv2/highgui.hpp
 -
 iostream
 -
-pylon/PylonGUI.h
--
 
 /opt/pylon/include/Base/GCArray.h
 Base/GCTypes.h
