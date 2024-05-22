@@ -1,9 +1,0 @@
-/home/donghyuk/workspace/ME400/AutomatedControl/pylon/test/Grab_and_show/build/CMakeFiles/install/strip.dir
-/home/donghyuk/workspace/ME400/AutomatedControl/pylon/test/Grab_and_show/build/CMakeFiles/install.dir
-/home/donghyuk/workspace/ME400/AutomatedControl/pylon/test/Grab_and_show/build/CMakeFiles/list_install_components.dir
-/home/donghyuk/workspace/ME400/AutomatedControl/pylon/test/Grab_and_show/build/CMakeFiles/rebuild_cache.dir
-/home/donghyuk/workspace/ME400/AutomatedControl/pylon/test/Grab_and_show/build/CMakeFiles/edit_cache.dir
-/home/donghyuk/workspace/ME400/AutomatedControl/pylon/test/Grab_and_show/build/CMakeFiles/install/local.dir
-/home/donghyuk/workspace/ME400/AutomatedControl/pylon/test/Grab_and_show/build/CMakeFiles/openCVGrab.dir
-/home/donghyuk/workspace/ME400/AutomatedControl/pylon/test/Grab_and_show/build/CMakeFiles/openCVGrab_undistort.dir
-/home/donghyuk/workspace/ME400/AutomatedControl/pylon/test/Grab_and_show/build/CMakeFiles/Grab_and_show.dir

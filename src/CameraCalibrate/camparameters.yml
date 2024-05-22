@@ -1,0 +1,17 @@
+%YAML:1.0
+---
+# crop parameters
+is_crop: 0 # 0 : false
+crop_height_start: 0
+crop_height_end: 0
+crop_width_start: 0
+crop_width_end: 0
+
+# checkerboard size
+checkerboard_size: [9, 6]
+
+# resize parameters
+is_resize: 1 # 1 : true
+scale_x: 0.3
+scale_y: 0.3
+

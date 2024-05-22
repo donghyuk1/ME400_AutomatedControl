@@ -41,20 +41,74 @@ using namespace Pylon;
 // Namespace for using GenApi objects
 using namespace GenApi;
 
-// Namespace for using opencv objects.
+/// Namespace for using opencv objects.
 using namespace cv;
 
-// Namespace for using cout.
+/// Namespace for using cout.
 using namespace std;
 
-// Number of images to be grabbed.
-static const uint32_t c_countOfImagesToGrab = 2000;
+/// camera parameters yml file path
+cv::String parameters_path = "/home/donghyuk/workspace/ME400/AutomatedControl/src/CameraCalibrate/camparameters.yml";
+cv::String calibrate_path = "/home/donghyuk/workspace/ME400/AutomatedControl/src/CameraCalibrate/calibrate.yml";
 
-// Camera calibration parameters;
-Mat matrix = (cv::Mat_<double>(3, 3) << 1.16840596e+03, 0.0, 9.88861582e+02, 0.0, 1.17207804e+03, 6.02792542e+02,
-        0.0, 0.0, 1.0);
-Mat distortion = (cv::Mat_<double>(1, 5) << -0.34674492, 0.20385693, 0.00038561, -0.0008934, -0.09134574);
+/// Camera calibration parameters;
+//Mat matrix = (cv::Mat_<double>(3, 3) << 1.16840596e+03, 0.0, 9.88861582e+02, 0.0, 1.17207804e+03, 6.02792542e+02,
+//        0.0, 0.0, 1.0);
+//Mat distortion = (cv::Mat_<double>(1, 5) << -0.34674492, 0.20385693, 0.00038561, -0.0008934, -0.09134574);
+Mat camera_matrix = cv::Mat_<double>(3, 3);
+Mat distortion = cv::Mat_<double>(1, 5);
 
+/// Camera sizing parameters
+bool is_crop, is_resize;
+int crop_height_start, crop_height_end, crop_width_start, crop_width_end;
+vector<int> checkerboard_size(2);
+float scale_x, scale_y;
+
+int readData(){
+
+    cv::FileStorage fs_params(parameters_path, cv::FileStorage::READ);
+    if(!fs_params.isOpened()) {
+        std::cout << "file path : " << parameters_path << std::endl;
+        std::cerr << "Failed to open camparameters.yml" << std::endl;
+        exit(-1);
+        return -1;
+    }else {
+
+        fs_params["is_crop"] >> is_crop;
+        fs_params["crop_height_start"] >> crop_height_start;
+        fs_params["crop_height_end"] >> crop_height_end;
+        fs_params["crop_width_start"] >> crop_width_start;
+        fs_params["crop_width_end"] >> crop_width_end;
+        fs_params["checkerboard_size"] >> checkerboard_size;
+        fs_params["is_resize"] >> is_resize;
+        fs_params["scale_x"] >> scale_x;
+        fs_params["scale_y"] >> scale_y;
+
+        cout << "is_crop: " << is_crop << endl;
+        cout << "crop_height_start: " << crop_height_start << endl;
+        cout << "crop_height_end: " << crop_height_end << endl;
+        cout << "crop_width_start: " << crop_width_start << endl;
+        cout << "crop_width_end: " << crop_width_end << endl;
+        cout << "checkerboard_size: " << checkerboard_size[0] << "x" << checkerboard_size[1] << endl;
+        cout << "is_resize: " << is_resize << endl;
+        cout << "scale_x: " << scale_x << endl;
+        cout << "scale_y: " << scale_y << endl;
+
+        fs_params.release();
+    }
+    cv::FileStorage fs_calibrate(calibrate_path, cv::FileStorage::READ);
+    if(!fs_calibrate.isOpened()) {
+        std::cerr << "Failed to open calibrate.yml" << std::endl;
+        return -1;
+    }else{
+        fs_calibrate["camera_matrix"] >> camera_matrix;
+        fs_calibrate["distortion_coeff"] >> distortion;
+
+        fs_calibrate.release();
+    }
+
+    return 0;
+}
 
 int main(int argc, char* argv[])
 {
@@ -64,6 +118,9 @@ int main(int argc, char* argv[])
     // Automagically call PylonInitialize and PylonTerminate to ensure the pylon runtime system
     // is initialized during the lifetime of this object.
     Pylon::PylonAutoInitTerm autoInitTerm;
+
+    /// read camera parameters & distortion coeff
+    readData();
 
     try
     {
@@ -89,7 +146,7 @@ int main(int argc, char* argv[])
         CPylonImage pylonImage;
 
         // Create an OpenCV image
-        Mat openCvImage, img_downscaled, img_gray, img_edge, img_result;
+        Mat openCvImage, img_gray_downscaled, img_gray, img_edge, img_result;
         Mat img_gray_undistorted;
 
 
@@ -113,22 +170,37 @@ int main(int argc, char* argv[])
             if (ptrGrabResult->GrabSucceeded())
             {
                 // Access the image data.
-                cout << "SizeX: " << ptrGrabResult->GetWidth() << endl;
-                cout << "SizeY: " << ptrGrabResult->GetHeight() << endl;
-                const uint8_t *pImageBuffer = (uint8_t *) ptrGrabResult->GetBuffer();
-                cout << "Gray value of first pixel: " << (uint32_t) pImageBuffer[0] << endl << endl;
+                int sizeX = ptrGrabResult->GetWidth();
+                int sizeY = ptrGrabResult->GetHeight();
 
-                // Convert the grabbed buffer to pylon imag
+                std::cout << "Before image resize : " << "SizeX: " << sizeX <<
+                    ", SizeY: " << sizeY << std::endl;
+                const uint8_t *pImageBuffer = (uint8_t *) ptrGrabResult->GetBuffer();
+                std::cout << "Gray value of first pixel: " << (uint32_t) pImageBuffer[0] << std::endl << std::endl;
+
+                // Convert the grabbed buffer to pylon image
                 formatConverter.Convert(pylonImage, ptrGrabResult);
 
                 // Create an OpenCV image out of pylon image
                 openCvImage= cv::Mat(ptrGrabResult->GetHeight(), ptrGrabResult->GetWidth(), CV_8UC3, (uint8_t *) pylonImage.GetBuffer());
 
-                //resize(openCvImage, img_downscaled, Size(), 0.5, 0.5);
-
                 // hough transform using openCV
                 cvtColor(openCvImage, img_gray, COLOR_BGR2GRAY);
-                undistort(img_gray, img_gray_undistorted, matrix, distortion);
+
+                /// crop image if is_crop true
+                if(is_crop){
+                    img_gray = img_gray(cv::Range(crop_height_start, crop_height_end), cv::Range(crop_width_start, crop_width_end));
+                }
+
+                /// resize image if is_resize true
+                if(is_resize){
+                    std::cout << "resizing..." << scale_x << " " << scale_y << std::endl;
+                    cv::resize(img_gray, img_gray_downscaled, cv::Size(), scale_x, scale_y, cv::INTER_LINEAR);
+                }else{
+                    img_gray_downscaled = img_gray;
+                }
+
+                undistort(img_gray_downscaled, img_gray_undistorted, camera_matrix, distortion);
 
 
                 Canny(img_gray_undistorted, img_edge, 50, 200, 3);
