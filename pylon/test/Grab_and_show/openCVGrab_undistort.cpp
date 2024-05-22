@@ -76,9 +76,6 @@ int main(int argc, char* argv[])
         // Print the model name of the camera.
         cout << "Using device " << camera.GetDeviceInfo().GetModelName() << endl;
 
-        /// downscale the camera resolution
-        camera.ScalingHorizontal.SetValue(0.5);
-
 
         // The parameter MaxNumBuffer can be used to control the count of buffers
         // allocated for grabbing. The default value of this parameter is 10.

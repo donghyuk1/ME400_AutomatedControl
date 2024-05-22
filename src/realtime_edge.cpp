@@ -27,6 +27,7 @@
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/calib3d.hpp>
+#include <opencv2/opencv.hpp>
 
 
 // Include files to use the PYLON API.
@@ -149,6 +150,7 @@ int main(int argc, char* argv[])
         Mat openCvImage, img_gray_downscaled, img_gray, img_edge, img_result;
         Mat img_gray_undistorted;
 
+        Mat avg_kernel = Mat::ones(5, 5, CV_32F) / 25;
 
         // Start the grabbing of c_countOfImagesToGrab images.
         // The camera device is parameterized with a default configuration which
@@ -201,12 +203,14 @@ int main(int argc, char* argv[])
                 }
 
                 undistort(img_gray_downscaled, img_gray_undistorted, camera_matrix, distortion);
-                Mat img_gray_undistorted_histeq;
 
-                equalizeHist(img_gray_undistorted, img_gray_undistorted_histeq);
+
+                Mat img_blur;
+                filter2D(img_gray_undistorted, img_blur, -1, avg_kernel, Point(-1, -1), (0, 0), BORDER_REPLICATE);
+
 
                 //Canny(img_gray_undistorted, img_edge, 50, 200, 3);
-                Canny(img_gray_undistorted_histeq, img_edge, 50, 200, 3);
+                Canny(img_blur, img_edge, 50, 200, 3);
                 cvtColor(img_edge, img_result, COLOR_GRAY2BGR);
 
                 vector<Vec4i> lines;

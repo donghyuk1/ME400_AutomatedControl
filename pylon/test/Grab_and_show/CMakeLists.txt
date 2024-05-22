@@ -19,6 +19,9 @@ add_executable(openCVGrab openCVGrab.cpp)
 target_link_libraries(openCVGrab pylon::pylon)
 target_link_libraries(openCVGrab ${OpenCV_LIBS})
 
+add_executable(Grab_and_save Grab_and_save.cpp)
+target_link_libraries(Grab_and_save pylon::pylon)
+target_link_libraries(Grab_and_save ${OpenCV_LIBS})
 
 add_executable(openCVGrab_undistort openCVGrab_undistort.cpp)
 target_link_libraries(openCVGrab_undistort pylon::pylon)
