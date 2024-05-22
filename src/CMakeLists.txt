@@ -4,7 +4,7 @@ cmake_policy(SET CMP0074 NEW)    # respect <PACKAGE>_ROOT variables in "find_pac
 include(CMakePrintHelpers)
 
 set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR})
-
+add_definitions(-DSRC_DIR=\"${SRC_DIR}\")
 
 project(AutomatedControl VERSION 0.0)
 find_package(pylon 7.4.0 REQUIRED)

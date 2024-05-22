@@ -48,8 +48,8 @@ using namespace cv;
 using namespace std;
 
 /// camera parameters yml file path
-cv::String parameters_path = "/home/donghyuk/workspace/ME400/AutomatedControl/src/CameraCalibrate/camparameters.yml";
-cv::String calibrate_path = "/home/donghyuk/workspace/ME400/AutomatedControl/src/CameraCalibrate/calibrate.yml";
+cv::String parameters_path = SRC_DIR "/CameraCalibrate/camparameters.yml";
+cv::String calibrate_path = SRC_DIR "/CameraCalibrate/calibrate.yml";
 
 /// Camera calibration parameters;
 //Mat matrix = (cv::Mat_<double>(3, 3) << 1.16840596e+03, 0.0, 9.88861582e+02, 0.0, 1.17207804e+03, 6.02792542e+02,

@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_FLAGS =  
 
-CXX_DEFINES = 
+CXX_DEFINES = -DSRC_DIR=\"/home/donghyuk/workspace/ME400/AutomatedControl/src\"
 
 CXX_INCLUDES = -isystem /usr/include/opencv4 -isystem /opt/pylon/include 
 
