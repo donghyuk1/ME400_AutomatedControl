@@ -1,26 +1,18 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
-  "CXX"
-  )
-# The set of files for implicit dependencies of each language:
-set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/donghyuk/workspace/ME400/AutomatedControl/src/test/Grab_and_save.cpp" "/home/donghyuk/workspace/ME400/AutomatedControl/src/build/test/CMakeFiles/Grab_and_save.dir/Grab_and_save.cpp.o"
-  )
-set(CMAKE_CXX_COMPILER_ID "GNU")
-
-# Preprocessor definitions for this target.
-set(CMAKE_TARGET_DEFINITIONS_CXX
-  "SRC_DIR=\"/home/donghyuk/workspace/ME400/AutomatedControl/src\""
   )
 
-# The include file search paths:
-set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/usr/include/opencv4"
-  "/opt/pylon/include"
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/pi/Workspace/AutomatedControl/ME400_AutomatedControl/src/test/Grab_and_save.cpp" "test/CMakeFiles/Grab_and_save.dir/Grab_and_save.cpp.o" "gcc" "test/CMakeFiles/Grab_and_save.dir/Grab_and_save.cpp.o.d"
   )
 
-# Targets to which this target links.
-set(CMAKE_TARGET_LINKED_INFO_FILES
+# Targets to which this target links which contain Fortran sources.
+set(CMAKE_Fortran_TARGET_LINKED_INFO_FILES
   )
 
 # Fortran module output directory.

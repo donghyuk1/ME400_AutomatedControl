@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Grab_and_save.dir/Grab_and_save.cpp.o"
+  "CMakeFiles/Grab_and_save.dir/Grab_and_save.cpp.o.d"
   "Grab_and_save"
   "Grab_and_save.pdb"
 )

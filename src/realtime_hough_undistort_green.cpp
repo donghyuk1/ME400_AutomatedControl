@@ -207,10 +207,10 @@ int main(int argc, char* argv[])
                 undistort(img_gray_downscaled, img_gray_undistorted, camera_matrix, distortion);
                 Mat img_gray_undistorted_histeq;
 
-                equalizeHist(img_gray_undistorted, img_gray_undistorted_histeq);
+                //equalizeHist(img_gray_undistorted, img_gray_undistorted_histeq);
 
-                //Canny(img_gray_undistorted, img_edge, 50, 200, 3);
-                Canny(img_gray_undistorted_histeq, img_edge, 50, 200, 3);
+                Canny(img_gray_undistorted, img_edge, 50, 200, 3);
+                //Canny(img_gray_undistorted_histeq, img_edge, 50, 200, 3);
                 cvtColor(img_edge, img_result, COLOR_GRAY2BGR);
 
                 vector<Vec4i> lines;

@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/realtime_hough.dir/realtime_hough.cpp.o"
+  "CMakeFiles/realtime_hough.dir/realtime_hough.cpp.o.d"
   "realtime_hough"
   "realtime_hough.pdb"
 )

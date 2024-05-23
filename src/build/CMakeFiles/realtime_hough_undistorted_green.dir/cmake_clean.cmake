@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/realtime_hough_undistorted_green.dir/realtime_hough_undistort_green.cpp.o"
+  "CMakeFiles/realtime_hough_undistorted_green.dir/realtime_hough_undistort_green.cpp.o.d"
   "realtime_hough_undistorted_green"
   "realtime_hough_undistorted_green.pdb"
 )
