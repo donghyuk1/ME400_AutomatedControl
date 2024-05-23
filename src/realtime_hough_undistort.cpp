@@ -147,7 +147,11 @@ int main(int argc, char* argv[])
 
         // Create an OpenCV image
         Mat openCvImage, img_gray_downscaled, img_gray, img_edge, img_result;
+        Mat img_histeq, img_filtered;
         Mat img_gray_undistorted;
+
+        // Average filter kernel
+        Mat avg_kernel = Mat::ones(5, 5, CV_32F) / 25;
 
 
         // Start the grabbing of c_countOfImagesToGrab images.
@@ -201,16 +205,19 @@ int main(int argc, char* argv[])
                 }
 
                 undistort(img_gray_downscaled, img_gray_undistorted, camera_matrix, distortion);
-                Mat img_gray_undistorted_histeq;
 
-                //equalizeHist(img_gray_undistorted, img_gray_undistorted_histeq);
+                /// Histogram equalization
+                equalizeHist(img_gray_undistorted, img_histeq);
 
-                Canny(img_gray_undistorted, img_edge, 50, 200, 3);
+                /// Apply average filter
+                filter2D(img_histeq, img_filtered, -1, avg_kernel, Point(-1, -1), (0, 0), BORDER_REPLICATE);
+
+                Canny(img_filtered, img_edge, 50, 200, 3);
                 //Canny(img_gray_undistorted_histeq, img_edge, 50, 200, 3);
                 cvtColor(img_edge, img_result, COLOR_GRAY2BGR);
 
                 vector<Vec4i> lines;
-                HoughLinesP(img_edge, lines, 2, CV_PI/180, 50, 50, 10);
+                HoughLinesP(img_edge, lines, 3, CV_PI/180, 50, 50, 10);
 
                 for(size_t i = 0; i < lines.size(); i++){
                     Vec4i l = lines[i];

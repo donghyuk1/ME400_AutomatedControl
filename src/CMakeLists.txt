@@ -21,18 +21,6 @@ add_executable( realtime_hough_undistorted ${SRC_DIR}/realtime_hough_undistort.c
 target_link_libraries(realtime_hough_undistorted pylon::pylon)
 target_link_libraries(realtime_hough_undistorted ${OpenCV_LIBS})
 
-add_executable( realtime_hough_undistorted_red ${SRC_DIR}/realtime_hough_undistort_red.cpp)
-target_link_libraries(realtime_hough_undistorted_red pylon::pylon)
-target_link_libraries(realtime_hough_undistorted_red ${OpenCV_LIBS})
-
-add_executable( realtime_hough_undistorted_blue ${SRC_DIR}/realtime_hough_undistort_blue.cpp)
-target_link_libraries(realtime_hough_undistorted_blue pylon::pylon)
-target_link_libraries(realtime_hough_undistorted_blue ${OpenCV_LIBS})
-
-add_executable( realtime_hough_undistorted_green ${SRC_DIR}/realtime_hough_undistort_green.cpp)
-target_link_libraries(realtime_hough_undistorted_green pylon::pylon)
-target_link_libraries(realtime_hough_undistorted_green ${OpenCV_LIBS})
-
 add_executable( realtime_edge ${SRC_DIR}/realtime_edge.cpp)
 target_link_libraries(realtime_edge pylon::pylon)
 target_link_libraries(realtime_edge ${OpenCV_LIBS})

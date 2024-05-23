@@ -174,7 +174,7 @@ int main(int /*argc*/, char* /*argv*/[])
                 undistort(img_gray_downscaled, img_gray_undistorted, camera_matrix, distortion);
                 // Get the current timestamp and create the filename
                 std::string timestamp = getCurrentTimestamp();
-                std::string filename = "./" + timestamp + ".png";
+                std::string filename = SRC_DIR "/saved_img/" + timestamp + ".png";
 
                 // Save the image to the current directory with the timestamp as filename
                 cv::imwrite(filename, img_gray_undistorted);
