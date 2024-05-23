@@ -28,6 +28,8 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/calib3d.hpp>
 
+/// math library to calculate camera yaw angle
+#include <math.h>
 
 // Include files to use the PYLON API.
 #include <pylon/PylonIncludes.h>
@@ -55,14 +57,16 @@ cv::String calibrate_path = SRC_DIR "/CameraCalibrate/calibrate.yml";
 //Mat matrix = (cv::Mat_<double>(3, 3) << 1.16840596e+03, 0.0, 9.88861582e+02, 0.0, 1.17207804e+03, 6.02792542e+02,
 //        0.0, 0.0, 1.0);
 //Mat distortion = (cv::Mat_<double>(1, 5) << -0.34674492, 0.20385693, 0.00038561, -0.0008934, -0.09134574);
-Mat camera_matrix = cv::Mat_<double>(3, 3);
-Mat distortion = cv::Mat_<double>(1, 5);
+Mat camera_matrix = cv::Mat_<float>(3, 3);
+Mat distortion = cv::Mat_<float>(1, 5);
 
 /// Camera sizing parameters
 bool is_crop, is_resize;
 int crop_height_start, crop_height_end, crop_width_start, crop_width_end;
 vector<int> checkerboard_size(2);
 float scale_x, scale_y;
+float line_gradient_threshold;
+
 
 int readData(){
 
@@ -83,6 +87,7 @@ int readData(){
         fs_params["is_resize"] >> is_resize;
         fs_params["scale_x"] >> scale_x;
         fs_params["scale_y"] >> scale_y;
+        fs_params["line_gradient_threshold"] >> line_gradient_threshold;
 
         cout << "is_crop: " << is_crop << endl;
         cout << "crop_height_start: " << crop_height_start << endl;
@@ -93,6 +98,7 @@ int readData(){
         cout << "is_resize: " << is_resize << endl;
         cout << "scale_x: " << scale_x << endl;
         cout << "scale_y: " << scale_y << endl;
+        cout << "line_gradient_threshold: " << line_gradient_threshold << endl;
 
         fs_params.release();
     }
@@ -109,6 +115,8 @@ int readData(){
 
     return 0;
 }
+
+
 
 int main(int argc, char* argv[])
 {
@@ -153,6 +161,10 @@ int main(int argc, char* argv[])
         // Average filter kernel
         Mat avg_kernel = Mat::ones(5, 5, CV_32F) / 25;
 
+        // average slope
+        float yaw_angle;
+        int valid_count;
+
 
         // Start the grabbing of c_countOfImagesToGrab images.
         // The camera device is parameterized with a default configuration which
@@ -177,10 +189,14 @@ int main(int argc, char* argv[])
                 int sizeX = ptrGrabResult->GetWidth();
                 int sizeY = ptrGrabResult->GetHeight();
 
-                std::cout << "Before image resize : " << "SizeX: " << sizeX <<
-                    ", SizeY: " << sizeY << std::endl;
+                /// Initialize yaw parameter
+                yaw_angle = 0;
+                valid_count = 0;
+
+//                std::cout << "Before image resize : " << "SizeX: " << sizeX <<
+//                    ", SizeY: " << sizeY << std::endl;
                 const uint8_t *pImageBuffer = (uint8_t *) ptrGrabResult->GetBuffer();
-                std::cout << "Gray value of first pixel: " << (uint32_t) pImageBuffer[0] << std::endl << std::endl;
+                //std::cout << "Gray value of first pixel: " << (uint32_t) pImageBuffer[0] << std::endl << std::endl;
 
                 // Convert the grabbed buffer to pylon image
                 formatConverter.Convert(pylonImage, ptrGrabResult);
@@ -198,7 +214,7 @@ int main(int argc, char* argv[])
 
                 /// resize image if is_resize true
                 if(is_resize){
-                    std::cout << "resizing..." << scale_x << " " << scale_y << std::endl;
+                    //std::cout << "resizing..." << scale_x << " " << scale_y << std::endl;
                     cv::resize(img_gray, img_gray_downscaled, cv::Size(), scale_x, scale_y, cv::INTER_LINEAR);
                 }else{
                     img_gray_downscaled = img_gray;
@@ -212,18 +228,36 @@ int main(int argc, char* argv[])
                 /// Apply average filter
                 filter2D(img_histeq, img_filtered, -1, avg_kernel, Point(-1, -1), (0, 0), BORDER_REPLICATE);
 
+                /// Edge detection using Canny
                 Canny(img_filtered, img_edge, 50, 200, 3);
-                //Canny(img_gray_undistorted_histeq, img_edge, 50, 200, 3);
+
+                /// just for drawing lines
                 cvtColor(img_edge, img_result, COLOR_GRAY2BGR);
 
+                /// vector to store lines
                 vector<Vec4i> lines;
                 HoughLinesP(img_edge, lines, 3, CV_PI/180, 50, 50, 10);
 
-                for(size_t i = 0; i < lines.size(); i++){
+                for(size_t i = 0; i < lines.size(); i++) {
                     Vec4i l = lines[i];
-                    line(img_result, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 2, LINE_AA);
+                    //std::cout << l << std::endl;
+                    float grad_ = float(l[3] - l[1]) / float(l[2] - l[0]);
+                    if (abs(grad_) > line_gradient_threshold) {
+                        continue;
+                    } else {
+                        yaw_angle += atan(grad_);
+                        valid_count += 1;
+                        line(img_result, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0, 0, 255), 2, LINE_AA);
+                    }
                 }
 
+                if(valid_count > 0){
+                    yaw_angle = yaw_angle / valid_count;
+                } else{
+                    yaw_angle = 0;
+                }
+
+                std::cout << "Average angle : " << yaw_angle * 180 / CV_PI << std::endl;
 
 
                 // Create a display window

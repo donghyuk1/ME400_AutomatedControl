@@ -16,7 +16,7 @@ def drawHough(edges):
 
     return dst
 
-img1_dir = "../saved_img/2024-05-23_20-22-54.png"
+img1_dir = "../saved_img/2024-05-23_20-22-48.png"
 #img2_dir = "../saved_img/2024-05-23_23-04-11.png"
 
 kernel = np.ones((5, 5), np.float32)/25

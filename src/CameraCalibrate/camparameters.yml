@@ -15,3 +15,5 @@ is_resize: 1 # 1 : true
 scale_x: 0.3
 scale_y: 0.3
 
+# line gradient threshold
+line_gradient_threshold: 0.5 # 60 degree
