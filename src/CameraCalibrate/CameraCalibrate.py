@@ -116,7 +116,7 @@ ret, matrix, distortion, r_vecs, t_vecs = cv2.calibrateCamera(
     threedpoints, twodpoints, grayColor.shape[::-1], None, None)
 
 # Undistortion with new image
-grid = cv2.imread('img/checkerboard1.png')
+grid = cv2.imread('img/checkerboard3.png')
 if is_crop:
     grid = grid[crop_height_start:crop_height_end, crop_width_start:crop_width_end]
 

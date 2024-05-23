@@ -170,6 +170,32 @@ realtime_edge/fast:
 .PHONY : realtime_edge/fast
 
 #=============================================================================
+# Target rules for targets named realtime_hough_undistorted_green
+
+# Build rule for target.
+realtime_hough_undistorted_green: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 realtime_hough_undistorted_green
+.PHONY : realtime_hough_undistorted_green
+
+# fast build rule for target.
+realtime_hough_undistorted_green/fast:
+	$(MAKE) -f CMakeFiles/realtime_hough_undistorted_green.dir/build.make CMakeFiles/realtime_hough_undistorted_green.dir/build
+.PHONY : realtime_hough_undistorted_green/fast
+
+#=============================================================================
+# Target rules for targets named realtime_hough_undistorted_red
+
+# Build rule for target.
+realtime_hough_undistorted_red: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 realtime_hough_undistorted_red
+.PHONY : realtime_hough_undistorted_red
+
+# fast build rule for target.
+realtime_hough_undistorted_red/fast:
+	$(MAKE) -f CMakeFiles/realtime_hough_undistorted_red.dir/build.make CMakeFiles/realtime_hough_undistorted_red.dir/build
+.PHONY : realtime_hough_undistorted_red/fast
+
+#=============================================================================
 # Target rules for targets named realtime_hough_undistorted
 
 # Build rule for target.
@@ -181,6 +207,19 @@ realtime_hough_undistorted: cmake_check_build_system
 realtime_hough_undistorted/fast:
 	$(MAKE) -f CMakeFiles/realtime_hough_undistorted.dir/build.make CMakeFiles/realtime_hough_undistorted.dir/build
 .PHONY : realtime_hough_undistorted/fast
+
+#=============================================================================
+# Target rules for targets named realtime_hough_undistorted_blue
+
+# Build rule for target.
+realtime_hough_undistorted_blue: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 realtime_hough_undistorted_blue
+.PHONY : realtime_hough_undistorted_blue
+
+# fast build rule for target.
+realtime_hough_undistorted_blue/fast:
+	$(MAKE) -f CMakeFiles/realtime_hough_undistorted_blue.dir/build.make CMakeFiles/realtime_hough_undistorted_blue.dir/build
+.PHONY : realtime_hough_undistorted_blue/fast
 
 #=============================================================================
 # Target rules for targets named realtime_hough
@@ -289,6 +328,87 @@ realtime_hough_undistort.cpp.s:
 	$(MAKE) -f CMakeFiles/realtime_hough_undistorted.dir/build.make CMakeFiles/realtime_hough_undistorted.dir/realtime_hough_undistort.cpp.s
 .PHONY : realtime_hough_undistort.cpp.s
 
+realtime_hough_undistort_blue.o: realtime_hough_undistort_blue.cpp.o
+
+.PHONY : realtime_hough_undistort_blue.o
+
+# target to build an object file
+realtime_hough_undistort_blue.cpp.o:
+	$(MAKE) -f CMakeFiles/realtime_hough_undistorted_blue.dir/build.make CMakeFiles/realtime_hough_undistorted_blue.dir/realtime_hough_undistort_blue.cpp.o
+.PHONY : realtime_hough_undistort_blue.cpp.o
+
+realtime_hough_undistort_blue.i: realtime_hough_undistort_blue.cpp.i
+
+.PHONY : realtime_hough_undistort_blue.i
+
+# target to preprocess a source file
+realtime_hough_undistort_blue.cpp.i:
+	$(MAKE) -f CMakeFiles/realtime_hough_undistorted_blue.dir/build.make CMakeFiles/realtime_hough_undistorted_blue.dir/realtime_hough_undistort_blue.cpp.i
+.PHONY : realtime_hough_undistort_blue.cpp.i
+
+realtime_hough_undistort_blue.s: realtime_hough_undistort_blue.cpp.s
+
+.PHONY : realtime_hough_undistort_blue.s
+
+# target to generate assembly for a file
+realtime_hough_undistort_blue.cpp.s:
+	$(MAKE) -f CMakeFiles/realtime_hough_undistorted_blue.dir/build.make CMakeFiles/realtime_hough_undistorted_blue.dir/realtime_hough_undistort_blue.cpp.s
+.PHONY : realtime_hough_undistort_blue.cpp.s
+
+realtime_hough_undistort_green.o: realtime_hough_undistort_green.cpp.o
+
+.PHONY : realtime_hough_undistort_green.o
+
+# target to build an object file
+realtime_hough_undistort_green.cpp.o:
+	$(MAKE) -f CMakeFiles/realtime_hough_undistorted_green.dir/build.make CMakeFiles/realtime_hough_undistorted_green.dir/realtime_hough_undistort_green.cpp.o
+.PHONY : realtime_hough_undistort_green.cpp.o
+
+realtime_hough_undistort_green.i: realtime_hough_undistort_green.cpp.i
+
+.PHONY : realtime_hough_undistort_green.i
+
+# target to preprocess a source file
+realtime_hough_undistort_green.cpp.i:
+	$(MAKE) -f CMakeFiles/realtime_hough_undistorted_green.dir/build.make CMakeFiles/realtime_hough_undistorted_green.dir/realtime_hough_undistort_green.cpp.i
+.PHONY : realtime_hough_undistort_green.cpp.i
+
+realtime_hough_undistort_green.s: realtime_hough_undistort_green.cpp.s
+
+.PHONY : realtime_hough_undistort_green.s
+
+# target to generate assembly for a file
+realtime_hough_undistort_green.cpp.s:
+	$(MAKE) -f CMakeFiles/realtime_hough_undistorted_green.dir/build.make CMakeFiles/realtime_hough_undistorted_green.dir/realtime_hough_undistort_green.cpp.s
+.PHONY : realtime_hough_undistort_green.cpp.s
+
+realtime_hough_undistort_red.o: realtime_hough_undistort_red.cpp.o
+
+.PHONY : realtime_hough_undistort_red.o
+
+# target to build an object file
+realtime_hough_undistort_red.cpp.o:
+	$(MAKE) -f CMakeFiles/realtime_hough_undistorted_red.dir/build.make CMakeFiles/realtime_hough_undistorted_red.dir/realtime_hough_undistort_red.cpp.o
+.PHONY : realtime_hough_undistort_red.cpp.o
+
+realtime_hough_undistort_red.i: realtime_hough_undistort_red.cpp.i
+
+.PHONY : realtime_hough_undistort_red.i
+
+# target to preprocess a source file
+realtime_hough_undistort_red.cpp.i:
+	$(MAKE) -f CMakeFiles/realtime_hough_undistorted_red.dir/build.make CMakeFiles/realtime_hough_undistorted_red.dir/realtime_hough_undistort_red.cpp.i
+.PHONY : realtime_hough_undistort_red.cpp.i
+
+realtime_hough_undistort_red.s: realtime_hough_undistort_red.cpp.s
+
+.PHONY : realtime_hough_undistort_red.s
+
+# target to generate assembly for a file
+realtime_hough_undistort_red.cpp.s:
+	$(MAKE) -f CMakeFiles/realtime_hough_undistorted_red.dir/build.make CMakeFiles/realtime_hough_undistorted_red.dir/realtime_hough_undistort_red.cpp.s
+.PHONY : realtime_hough_undistort_red.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -299,10 +419,13 @@ help:
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... edit_cache"
 	@echo "... realtime_edge"
+	@echo "... edit_cache"
+	@echo "... realtime_hough_undistorted_green"
+	@echo "... realtime_hough_undistorted_red"
 	@echo "... install/local"
 	@echo "... realtime_hough_undistorted"
+	@echo "... realtime_hough_undistorted_blue"
 	@echo "... realtime_hough"
 	@echo "... Grab_and_save"
 	@echo "... realtime_edge.o"
@@ -314,6 +437,15 @@ help:
 	@echo "... realtime_hough_undistort.o"
 	@echo "... realtime_hough_undistort.i"
 	@echo "... realtime_hough_undistort.s"
+	@echo "... realtime_hough_undistort_blue.o"
+	@echo "... realtime_hough_undistort_blue.i"
+	@echo "... realtime_hough_undistort_blue.s"
+	@echo "... realtime_hough_undistort_green.o"
+	@echo "... realtime_hough_undistort_green.i"
+	@echo "... realtime_hough_undistort_green.s"
+	@echo "... realtime_hough_undistort_red.o"
+	@echo "... realtime_hough_undistort_red.i"
+	@echo "... realtime_hough_undistort_red.s"
 .PHONY : help
 
 
