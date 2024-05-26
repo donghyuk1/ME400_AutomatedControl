@@ -36,6 +36,9 @@
 
 // Use sstream to create image names including integer
 #include <sstream>
+#include <iostream>
+#include <csignal> // For signal handling
+#include <ctime>
 
 // Namespace for using pylon objects.
 using namespace Pylon;
@@ -67,6 +70,14 @@ vector<int> checkerboard_size(2);
 float scale_x, scale_y;
 float line_gradient_threshold;
 
+// Global flag to indicate when to stop grabbing images
+volatile sig_atomic_t stopGrabbing = 0;
+
+
+void signalHandler(int signum)
+{
+    stopGrabbing = 1;
+}
 
 int readData(){
 
@@ -116,10 +127,23 @@ int readData(){
     return 0;
 }
 
+std::string getCurrentTimestamp() {
+    auto now = std::chrono::system_clock::now();
+    auto in_time_t = std::chrono::system_clock::to_time_t(now);
+    std::tm tm;
+    localtime_r(&in_time_t, &tm);  // Use localtime_r for thread-safe local time
 
+    std::stringstream ss;
+    ss << std::put_time(&tm, "%Y-%m-%d_%H-%M-%S");
+    return ss.str();
+}
 
 int main(int argc, char* argv[])
 {
+
+    // Register signal handler for SIGINT
+    signal(SIGINT, signalHandler);
+
     // The exit code of the sample application.
     int exitCode = 0;
 
@@ -153,6 +177,10 @@ int main(int argc, char* argv[])
         formatConverter.OutputPixelFormat= PixelType_BGR8packed;
         CPylonImage pylonImage;
 
+        // Video writer object
+        VideoWriter videoWriter;
+        bool isVideoWriterInitialized = false;
+
         // Create an OpenCV image
         Mat openCvImage, img_gray_downscaled, img_gray, img_edge, img_result;
         Mat img_histeq, img_filtered;
@@ -177,7 +205,7 @@ int main(int argc, char* argv[])
 
         // Camera.StopGrabbing() is called automatically by the RetrieveResult() method
         // when c_countOfImagesToGrab images have been retrieved.
-        while ( camera.IsGrabbing())
+        while ( camera.IsGrabbing() && !stopGrabbing)
         {
             // Wait for an image and then retrieve it. A timeout of 5000 ms is used.
             camera.RetrieveResult( 5000, ptrGrabResult, TimeoutHandling_ThrowException);
@@ -259,6 +287,24 @@ int main(int argc, char* argv[])
 
                 std::cout << "Average angle : " << yaw_angle * 180 / CV_PI << std::endl;
 
+                // Initialize the VideoWriter object the first time a frame is grabbed
+                if (!isVideoWriterInitialized)
+                {
+                    std::string timestamp = getCurrentTimestamp();
+                    std::string filename = SRC_DIR "/saved_img/" + timestamp + ".avi";
+                    // Define the codec and create a VideoWriter object
+                    videoWriter.open(filename, VideoWriter::fourcc('M', 'J', 'P', 'G'), 30, img_result.size(), true);
+                    if (!videoWriter.isOpened())
+                    {
+                        cerr << "Could not open the video writer" << endl;
+                        return -1;
+                    }
+                    isVideoWriterInitialized = true;
+                }
+
+                // Write the current frame to the video
+                videoWriter.write(img_result);
+
 
                 // // Create a display window
                 // namedWindow( "OpenCV Display Window", cv::WINDOW_NORMAL);//AUTOSIZE //FREERATIO
@@ -275,6 +321,16 @@ int main(int argc, char* argv[])
                 cout << "Error: " << ptrGrabResult->GetErrorCode() << " " << ptrGrabResult->GetErrorDescription() << endl;
             }
         }
+        
+        // Stop grabbing
+        camera.StopGrabbing();
+
+        // Release the VideoWriter object
+        videoWriter.release();
+
+        cout << "Video saved successfully!" << endl;
+
+
     }
     catch (GenICam::GenericException &e)
     {

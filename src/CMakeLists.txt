@@ -12,18 +12,24 @@ find_package( OpenCV REQUIRED )
 include_directories(${OpenCV_INCLUDE_DIRS})
 
 add_subdirectory(test)
+add_subdirectory(socket)
 
-add_executable( realtime_hough ${SRC_DIR}/realtime_hough.cpp)
-target_link_libraries(realtime_hough pylon::pylon)
-target_link_libraries(realtime_hough ${OpenCV_LIBS})
+#add_executable( realtime_hough ${SRC_DIR}/realtime_hough.cpp)
+#target_link_libraries(realtime_hough pylon::pylon)
+#target_link_libraries(realtime_hough ${OpenCV_LIBS})
 
 add_executable( realtime_hough_undistorted ${SRC_DIR}/realtime_hough_undistort.cpp)
 target_link_libraries(realtime_hough_undistorted pylon::pylon)
 target_link_libraries(realtime_hough_undistorted ${OpenCV_LIBS})
 
-add_executable( realtime_edge ${SRC_DIR}/realtime_edge.cpp)
-target_link_libraries(realtime_edge pylon::pylon)
-target_link_libraries(realtime_edge ${OpenCV_LIBS})
+add_executable( realtime_hough_video ${SRC_DIR}/realtime_hough_video.cpp)
+target_link_libraries(realtime_hough_video pylon::pylon)
+target_link_libraries(realtime_hough_video ${OpenCV_LIBS})
+
+
+#add_executable( realtime_edge ${SRC_DIR}/realtime_edge.cpp)
+#target_link_libraries(realtime_edge pylon::pylon)
+#target_link_libraries(realtime_edge ${OpenCV_LIBS})
 
 install( TARGETS realtime_hough_undistorted)
 

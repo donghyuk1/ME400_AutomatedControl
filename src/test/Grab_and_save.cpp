@@ -171,6 +171,11 @@ int main(int /*argc*/, char* /*argv*/[])
                     img_gray_downscaled = img_gray;
                 }
 
+                float a = 1.1234;
+                stringstream ss;
+                ss << angle;
+                string angleText = ss.str();
+
                 undistort(img_gray_downscaled, img_gray_undistorted, camera_matrix, distortion);
                 // Get the current timestamp and create the filename
                 std::string timestamp = getCurrentTimestamp();

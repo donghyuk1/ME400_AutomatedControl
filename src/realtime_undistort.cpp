@@ -203,27 +203,27 @@ int main(int argc, char* argv[])
                 undistort(img_gray_downscaled, img_gray_undistorted, camera_matrix, distortion);
 
 
-                // Canny(img_gray_undistorted, img_edge, 50, 200, 3);
-                // cvtColor(img_edge, img_result, COLOR_GRAY2BGR);
+                Canny(img_gray_undistorted, img_edge, 50, 200, 3);
+                cvtColor(img_edge, img_result, COLOR_GRAY2BGR);
 
-                // vector<Vec4i> lines;
-                // HoughLinesP(img_edge, lines, 2, CV_PI/180, 50, 50, 10);
+                vector<Vec4i> lines;
+                HoughLinesP(img_edge, lines, 2, CV_PI/180, 50, 50, 10);
 
-                // for(size_t i = 0; i < lines.size(); i++){
-                //     Vec4i l = lines[i];
-                //     line(img_result, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 2, LINE_AA);
-                // }
+                for(size_t i = 0; i < lines.size(); i++){
+                    Vec4i l = lines[i];
+                    line(img_result, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 2, LINE_AA);
+                }
 
 
 
-                // Create a display window
-                namedWindow( "OpenCV Display Window", cv::WINDOW_NORMAL);//AUTOSIZE //FREERATIO
-                // Display the current image with opencv
-                imshow( "OpenCV Display Window", img_gray_undistorted);
-                // Define a timeout for customer's input in ms.
-                // '0' means indefinite, i.e. the next image will be displayed after closing the window
-                // '1' means live stream
-                waitKey(1);
+                // // Create a display window
+                // namedWindow( "OpenCV Display Window", cv::WINDOW_NORMAL);//AUTOSIZE //FREERATIO
+                // // Display the current image with opencv
+                // imshow( "OpenCV Display Window", img_gray_undistorted);
+                // // Define a timeout for customer's input in ms.
+                // // '0' means indefinite, i.e. the next image will be displayed after closing the window
+                // // '1' means live stream
+                // waitKey(1);
 
             }
             else

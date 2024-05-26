@@ -21,20 +21,25 @@
 	INTO BINARY FORM AND TO FUNCTION IN BINARY FORM. ANY SUCH ADDITIONAL SOFTWARE
 	IS OUTSIDE THE SCOPE OF THIS LICENSE.
 */
-// Include files to use OpenCV API.
+/// Include files to use OpenCV API.
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/calib3d.hpp>
 
+/// for socket communication
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <unistd.h>
+
 /// math library to calculate camera yaw angle
 #include <math.h>
 
-// Include files to use the PYLON API.
+/// Include files to use the PYLON API.
 #include <pylon/PylonIncludes.h>
 
-// Use sstream to create image names including integer
+/// Use sstream to create image names including integer
 #include <sstream>
 
 // Namespace for using pylon objects.
@@ -120,6 +125,52 @@ int readData(){
 
 int main(int argc, char* argv[])
 {
+    
+    /// socket communication 
+    int server_fd, new_socket;
+    struct sockaddr_in address;
+    int opt = 1;
+    int addrlen = sizeof(address);
+
+    /// Creating socket file descriptor
+    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
+        perror("socket failed");
+        exit(EXIT_FAILURE);
+    }
+
+    /// Attaching socket to the port 8080
+    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt))) {
+        perror("setsockopt");
+        exit(EXIT_FAILURE);
+    }
+    address.sin_family = AF_INET;
+    address.sin_addr.s_addr = INADDR_ANY;
+    address.sin_port = htons(8080);
+
+    /// Binding socket to the port
+    if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0) {
+        perror("bind failed");
+        exit(EXIT_FAILURE);
+    }
+
+    /// Listening for connections
+    if (listen(server_fd, 3) < 0) {
+        perror("listen");
+        exit(EXIT_FAILURE);
+    }
+    
+    std::cout << "hough : waiting for socket connection" << std::endl;
+
+    /// Accepting a single connection
+    if ((new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen)) < 0) {
+        perror("accept");
+        exit(EXIT_FAILURE);
+    }
+
+
+
+    
+    
     // The exit code of the sample application.
     int exitCode = 0;
 
@@ -252,13 +303,16 @@ int main(int argc, char* argv[])
                 }
 
                 if(valid_count > 0){
-                    yaw_angle = yaw_angle / valid_count;
+                    yaw_angle = yaw_angle / valid_count * 180 / CV_PI;
                 } else{
                     yaw_angle = 0;
                 }
 
-                std::cout << "Average angle : " << yaw_angle * 180 / CV_PI << std::endl;
-
+                //std::cout << "Average angle : " << yaw_angle * 180 / CV_PI << std::endl;
+                if (send(new_socket, &yaw_angle, sizeof(yaw_angle), 0) != sizeof(yaw_angle)) {
+                    perror("send failed");
+                    break;
+                }
 
                 // // Create a display window
                 // namedWindow( "OpenCV Display Window", cv::WINDOW_NORMAL);//AUTOSIZE //FREERATIO
